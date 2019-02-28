@@ -5,10 +5,10 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/rerost/chaos-pubsub/app/server"
-	"github.com/rerost/chaos-pubsub/infra/pubsub"
-	"github.com/rerost/chaos-pubsub/lib/grpcserver"
-	"github.com/rerost/chaos-pubsub/lib/interceptor/logger"
+	"github.com/rerost/pubsub-proxy/app/server"
+	"github.com/rerost/pubsub-proxy/infra/pubsub"
+	"github.com/rerost/pubsub-proxy/lib/grpcserver"
+	"github.com/rerost/pubsub-proxy/lib/interceptor/logger"
 	"github.com/srvc/fail"
 )
 

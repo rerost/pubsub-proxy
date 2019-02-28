@@ -5,7 +5,7 @@ import (
 	"io"
 
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/rerost/chaos-pubsub/lib/grpcserver"
+	"github.com/rerost/pubsub-proxy/lib/grpcserver"
 	api_pb "google.golang.org/genproto/googleapis/pubsub/v1"
 )
 

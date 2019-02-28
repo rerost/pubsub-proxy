@@ -9,7 +9,7 @@ import (
 	"cloud.google.com/go/pubsub"
 	"cloud.google.com/go/pubsub/pstest"
 	"github.com/google/go-cmp/cmp"
-	"github.com/rerost/chaos-pubsub/app/server"
+	"github.com/rerost/pubsub-proxy/app/server"
 	"github.com/srvc/fail"
 	"google.golang.org/api/option"
 	api_pb "google.golang.org/genproto/googleapis/pubsub/v1"

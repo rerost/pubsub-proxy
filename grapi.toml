@@ -1,4 +1,4 @@
-package = "rerost.chaos_pubsub"
+package = "rerost.pubsub_proxy"
 
 [grapi]
 server_dir = "./app/server"

@@ -6,7 +6,7 @@ import (
 
 	"cloud.google.com/go/pubsub/pstest"
 	"github.com/google/go-cmp/cmp"
-	"github.com/rerost/chaos-pubsub/app/server"
+	"github.com/rerost/pubsub-proxy/app/server"
 	api_pb "google.golang.org/genproto/googleapis/pubsub/v1"
 	"google.golang.org/genproto/protobuf/field_mask"
 	"google.golang.org/grpc"

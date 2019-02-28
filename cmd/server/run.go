@@ -5,7 +5,7 @@ import (
 
 	"google.golang.org/grpc/grpclog"
 
-	"github.com/rerost/chaos-pubsub/app"
+	"github.com/rerost/pubsub-proxy/app"
 )
 
 func main() {

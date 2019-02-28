@@ -1,9 +1,9 @@
 # FROM golang:1.11
-FROM rerost/chaos-pubsub:latest
+FROM rerost/pubsub-proxy:latest
 
 ENV GOPATH /go
 
-ENV APP_ROOT $GOPATH/src/github.com/rerost/chaos-pubsub
+ENV APP_ROOT $GOPATH/src/github.com/rerost/pubsub-proxy
 WORKDIR /${APP_ROOT}
 
 # Install Dependency
