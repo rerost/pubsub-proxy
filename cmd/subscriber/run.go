@@ -41,9 +41,12 @@ func run() error {
 	err = sub.Receive(ctx, func(cctx context.Context, msg *pubsub.Message) {
 		d := string(msg.Data)
 		log.Print(d)
-		if nack := os.Getenv("Nack"); nack == "true" {
+		if nack := os.Getenv("NACK"); nack == "true" {
+			log.Println("Nack")
+			msg.Nack()
 			return
 		}
+		log.Println("Ack")
 		msg.Ack()
 	})
 

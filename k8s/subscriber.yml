@@ -45,6 +45,8 @@ spec:
               value: k8s-test-219404
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/pubsub-key-subscriber.json
+            - name: NACK
+              value: "true"
         - image: rerost/pubsub-proxy:latest
           imagePullPolicy: Always
           name: proxy
@@ -63,7 +65,8 @@ spec:
               value: k8s-test-219404
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/pubsub-key-subscriber.json
-
+            - name: NACK
+              value: "true"
 ---
 
 apiVersion: autoscaling/v2beta1
