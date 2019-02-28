@@ -1,0 +1,83 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    rerost.com/deploy-target: "true"
+    rerost.com/deploy-target-container: web
+    rerost.com/github: web=rerost/pubsub-duplicate-sample
+  name: subscriber
+  labels:
+    role: web 
+    run: subscriber
+    name: subscriber
+    namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: subscriber
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: subscriber
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: pubsub-key-subscriber
+      containers:
+        - image: rerost/pubsub-duplicate-sample:latest
+          imagePullPolicy: Always
+          name: web
+          command: ["/app/bin/subscriber"]
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: PUBSUB_TOPIC
+              value: test-duplicate
+            - name: PUBSUB_SUB
+              value: test-duplicate-subscription
+            - name: GOOGLE_CLOUD_PROJECT
+              value: k8s-test-219404
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/pubsub-key-subscriber.json
+        - image: rerost/pubsub-proxy:latest
+          imagePullPolicy: Always
+          name: publisher
+          command: ["/app/bin/server"]
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: PUBSUB_TOPIC
+              value: test-duplicate
+            - name: PUBSUB_SUB
+              value: test-duplicate-subscription
+            - name: GOOGLE_CLOUD_PROJECT
+              value: k8s-test-219404
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/pubsub-key-publisher.json
+
+---
+
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: subscriber-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: subscriber
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
