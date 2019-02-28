@@ -42,8 +42,11 @@ func run() error {
 		d := string(msg.Data)
 		log.Print(d)
 		if nack := os.Getenv("NACK"); nack == "true" {
+			log.Println("Nack")
 			msg.Nack()
+			return
 		}
+		log.Println("Ack")
 		msg.Ack()
 	})
 
