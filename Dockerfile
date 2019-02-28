@@ -1,5 +1,4 @@
-# FROM golang:1.11
-FROM rerost/pubsub-proxy:latest
+FROM golang:1.11
 
 ENV GOPATH /go
 
