@@ -6,31 +6,31 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.11.3
-    working_directory: /go/src/github.com/rerost/chaos-pubsub
+    working_directory: /go/src/github.com/rerost/pubsub-proxy
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t rerost/chaos-pubsub:`git rev-parse HEAD` .
+      - run: docker build -t rerost/pubsub-proxy:`git rev-parse HEAD` .
       - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker push rerost/chaos-pubsub:`git rev-parse HEAD`
+      - run: docker push rerost/pubsub-proxy:`git rev-parse HEAD`
   test:
     docker:
       - image: circleci/golang:1.11.3
-    working_directory: /go/src/github.com/rerost/chaos-pubsub
+    working_directory: /go/src/github.com/rerost/pubsub-proxy
     steps:
       - checkout
       - run: make test
   release:
     docker:
       - image: circleci/golang:1.11.3
-    working_directory: /go/src/github.com/rerost/chaos-pubsub
+    working_directory: /go/src/github.com/rerost/pubsub-proxy
     steps:
       - checkout
       - setup_remote_docker
       - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker pull rerost/chaos-pubsub:`git rev-parse HEAD`
-      - run: docker tag rerost/chaos-pubsub:`git rev-parse HEAD` rerost/chaos-pubsub:latest
-      - run: docker push rerost/chaos-pubsub:latest
+      - run: docker pull rerost/pubsub-proxy:`git rev-parse HEAD`
+      - run: docker tag rerost/pubsub-proxy:`git rev-parse HEAD` rerost/pubsub-proxy:latest
+      - run: docker push rerost/pubsub-proxy:latest
 
 workflows:
   version: 2
