@@ -40,7 +40,7 @@ spec:
                   value: /var/secrets/google/pubsub-key-publisher.json
             - image: rerost/pubsub-proxy:latest
               imagePullPolicy: Always
-              name: publisher
+              name: proxy
               command: ["/app/bin/server"]
               volumeMounts:
                 - name: google-cloud-key

@@ -29,9 +29,9 @@ spec:
           secret:
             secretName: pubsub-key-subscriber
       containers:
-        - image: rerost/pubsub-duplicate-sample:latest
+        - image: rerost/pubsub-proxy:latest
           imagePullPolicy: Always
-          name: web
+          name: subscriber
           command: ["/app/bin/subscriber"]
           volumeMounts:
             - name: google-cloud-key
@@ -47,8 +47,10 @@ spec:
               value: /var/secrets/google/pubsub-key-subscriber.json
         - image: rerost/pubsub-proxy:latest
           imagePullPolicy: Always
-          name: publisher
+          name: proxy
           command: ["/app/bin/server"]
+          ports:
+          - containerPort: 5000
           volumeMounts:
             - name: google-cloud-key
               mountPath: /var/secrets/google
@@ -60,7 +62,7 @@ spec:
             - name: GOOGLE_CLOUD_PROJECT
               value: k8s-test-219404
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secrets/google/pubsub-key-publisher.json
+              value: /var/secrets/google/pubsub-key-subscriber.json
 
 ---
 
