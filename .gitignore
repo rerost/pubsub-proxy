@@ -1,0 +1,6 @@
+*.so
+/vendor
+/bin
+/tmp
+/api
+coverage.txt
